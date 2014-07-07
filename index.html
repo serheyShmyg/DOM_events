@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DOM events</title>
+	<script src="DOM_events.js"></script>
+</head>
+<body>
+	<p id="test">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, perspiciatis vero tenetur commodi nisi quod quis placeat voluptas aspernatur. Impedit, minus ratione debitis ab delectus beatae. Animi voluptatem repudiandae nemo.</p>
+	<h1 id="id">Some other element</h1>
+	<script>
+		var element = document.getElementById('test'),
+			e = new Edom(element),
+			handler = function(e) {
+				alert('Click');
+			},
+			handler2 = function() {
+				alert('Click = 2');
+			};
+			
+		e.on('click.id', {a : 1}, handler);
+		e.on('click.id2', handler2);
+
+		e.off('click', handler2);
+
+		e.trigger('.id', {a : 2}, 190)
+
+		
+	</script>
+</body>
+</html>
