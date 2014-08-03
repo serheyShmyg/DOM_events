@@ -83,4 +83,4 @@ e.trigger('click', 1, 2, 3, 4, 5, 6);
 - instance - __new Edom([DOM element])__
 - on - __Edom.e.on([element], events, [data] callback)__ bind events
 - off - __Edom.e.off([element], events, [callback])__ unbind events
-- trigger - __Edom.e.off([element], events, [data])__ trigger events
+- trigger - __Edom.e.trigger([element], events, [data])__ trigger events
