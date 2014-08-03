@@ -13,10 +13,12 @@ var e = new Edom(),
 
 //Simple bind
 e.on(element, 'click', handler);
+e.on(element, 'click mouseover focus', handler); //few events
 e.on(element, 'click', {test : 'test'}, handler);
 
 //Bind with event ID
 e.on(element, 'click.someID', handler);
+e.on(element, 'click.someID focus.someOtherID', handler);
 
 //Custom event
 e.on(element, 'myEvent', handler);
