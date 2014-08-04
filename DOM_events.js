@@ -1,11 +1,10 @@
 (function(window) {
-	var version = '1.0.0',
+	var version = '1.0.1',
 		separator = '.',
-		eventsList = ['blur', 'focus', 'focusin', 'focusout', 'load', 'resize', 'scroll', 'unload', 'click', 'dblclick', 'mousedown', 'mouseup', 'mousemove', 'mouseover', 'mouseout', 'mouseenter', 'mouseleave', 'change', 'select', 'submit', 'keydown', 'keypress', 'keyup', 'error', 'contextmenu'],
-		isDomEvent = function(eventName) {
-			return eventsList.some(function(item) {
-				return (eventName === item) && 'on' + eventName in window;
-			});
+		//eventsList = ['blur', 'focus', 'focusin', 'focusout', 'load', 'resize', 'scroll', 'unload', 'click', 'dblclick', 'mousedown', 'mouseup', 'mousemove', 'mouseover', 'mouseout', 'mouseenter', 'mouseleave', 'change', 'select', 'submit', 'keydown', 'keypress', 'keyup', 'error', 'contextmenu'],
+		isDomEvent = function(element, eventName) {
+			element = element || window;
+			return 'on' + eventName in element;
 		},
 		_isElement = function(obj) {
 			try {
@@ -19,8 +18,9 @@
 			arr.forEach(function(item, i) {
 				if (handler && handler !== item.userHandler) return true;
 
-				if ( isDomEvent(eventName) ) {
-					el.removeEventListener(eventName, item, false);
+				if ( isDomEvent(el, eventName) ) {
+					if (el.removeEventListener) el.removeEventListener(eventName, item, false);
+					else el.detachEvent(eventName, item);
 					return true;
 				}
 
@@ -140,7 +140,10 @@
 				el.events[eventName][eventId].push(handlerWraper)
 			}
 
-			if ( isDomEvent(eventName) ) el.addEventListener(eventName, handlerWraper, false);
+			if ( isDomEvent(el, eventName) ) {
+				if (el.addEventListener) el.addEventListener(eventName, handlerWraper, false);
+				else el.attachEvent(eventName, handlerWraper);
+			}
 		});
 
 		return this;
