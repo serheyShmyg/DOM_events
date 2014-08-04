@@ -1,5 +1,5 @@
 (function(window) {
-	var version = '1.0.1',
+	var version = '1.0.2',
 		separator = '.',
 		//eventsList = ['blur', 'focus', 'focusin', 'focusout', 'load', 'resize', 'scroll', 'unload', 'click', 'dblclick', 'mousedown', 'mouseup', 'mousemove', 'mouseover', 'mouseout', 'mouseenter', 'mouseleave', 'change', 'select', 'submit', 'keydown', 'keypress', 'keyup', 'error', 'contextmenu'],
 		isDomEvent = function(element, eventName) {
@@ -19,8 +19,7 @@
 				if (handler && handler !== item.userHandler) return true;
 
 				if ( isDomEvent(el, eventName) ) {
-					if (el.removeEventListener) el.removeEventListener(eventName, item, false);
-					else el.detachEvent(eventName, item);
+					el.removeEventListener(eventName, item, false);
 					return true;
 				}
 
@@ -140,10 +139,7 @@
 				el.events[eventName][eventId].push(handlerWraper)
 			}
 
-			if ( isDomEvent(el, eventName) ) {
-				if (el.addEventListener) el.addEventListener(eventName, handlerWraper, false);
-				else el.attachEvent(eventName, handlerWraper);
-			}
+			if ( isDomEvent(el, eventName) ) el.addEventListener(eventName, handlerWraper, false);
 		});
 
 		return this;
